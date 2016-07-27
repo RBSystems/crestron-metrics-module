@@ -4,6 +4,7 @@ Reporting system usage via a series2/3-compatible module
 ### Current Simpl Windows configuration
 
 #### MakeStringPermanent symbol
+![Image of MakeStringPermanent symbol](https://raw.githubusercontent.com/byuoitav/crestron-metrics-module/master/makeStringPermanent.png)
 - Size: 256d
 - Signals
   - devBuilding[8]
@@ -25,6 +26,7 @@ Reporting system usage via a series2/3-compatible module
   - volumeLevel[4]
 
 #### Metrics symbol
+![Image of Metrics symbol](https://raw.githubusercontent.com/byuoitav/crestron-metrics-module/master/metrics.png)
 - Signals:
   - DIGITAL INPUTS:
     - Audio_Only_Press
