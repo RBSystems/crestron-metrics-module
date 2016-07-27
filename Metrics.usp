@@ -157,7 +157,6 @@ Function storeGlobalVars(string inputString)
 	}
 }
 
-//Function BuildHttpMessage(STRING EVENTHOSTNAME, STRING EVENTIP, STRING EVENTMAC, STRING EVENTBLDG, STRING EVENTROOM, STRING EVENTFLOOR, STRING EVENTLAT, STRING EVENTLON, STRING EVENTACTOR, string EVENTACTION, STRING userOrSystem)
 Function BuildHttpMessage(STRING EVENTACTOR, STRING EVENTACTION, STRING userOrSystem, STRING sessn)
 {
 	SIGNED_INTEGER dst,mNum,yNum,dNum,ContentLength;
@@ -181,7 +180,7 @@ Function BuildHttpMessage(STRING EVENTACTOR, STRING EVENTACTION, STRING userOrSy
 	STRING CLString[1024];
 	INTEGER spacePosition;
 
-	//hostname = HOSTNAME;
+	hostname = HOSTNAME;
 	description = "";
 	ipAddress = HOSTIP;
 	mac = HOSTMAC;
@@ -220,8 +219,13 @@ Function BuildHttpMessage(STRING EVENTACTOR, STRING EVENTACTION, STRING userOrSy
 	innerMsg4 = "},\"action\": {\"actor\": \"" + actor +"\", \"description\": \"" + desc +"\"}, \"session\": \""+ SESSION + "\"}";
 	ContentLength = Len(innerMsg1) + Len(innerMsg2) + Len(innerMsg3) + Len(innerMsg4);
 	CLString = ITOA(ContentLength);
-
-	header1 = "POST /events/" + userOrSystem +"/ HTTP/1.1" + NEWLINE;
+    
+	if (EVENTACTION = "System active"){
+		header1 = "POST /events/" + userOrSystem +"/" + hostname + "_SystemActive HTTP/1.1" + NEWLINE;
+	}
+	ELSE {
+		header1 = "POST /events/" + userOrSystem +"/ HTTP/1.1" + NEWLINE;
+	}
 	header2 = "Host: " + AWS + ":" + ITOA(REPORTINGHOSTPORT) + NEWLINE;
 	header3 = "Connection: keep-alive" + NEWLINE;
 	header4 = "Content-Length: " + CLString + NEWLINE;
