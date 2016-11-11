@@ -407,49 +407,42 @@ Release Program_Volume_Up // Volume Down
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Volume Up",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Program_Volume_Up",USER,SESSION);
 }
 
 Release Select_Blank // Blank
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Blank",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_Blank",USER,SESSION);
 }
 
 Release Select_Device_Control_IPTV // IPTV Device Control
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Device Control - IPTV",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_Device_Control_IPTV",USER,SESSION);
 }
 
 Release Select_HDMI_Cable // HDMI Cable
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "HDMI Cable",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_HDMI_Cable",USER,SESSION);
 }
 
 Release Select_HDMI_Jack // HDMI Jack
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "HDMI Jack",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_HDMI_Jack",USER,SESSION);
 }
 
 Release Select_IPTV // IPTV Input
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "IPTV",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_IPTV",USER,SESSION);
 }
 
 Release Select_Local_Input // Local Input
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Local Input",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_Local_Input",USER,SESSION);
 }
 
 Release Select_Remote_Input1 // Remote Input 1
@@ -468,56 +461,48 @@ Release Select_VGA_Cable // VGA Input
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "VGA Cable",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_VGA_Cable",USER,SESSION);
 }
 
 Release Help_Menu_Press // Help
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Help Menu",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Help_Menu_Press",USER,SESSION);
 }
 
 Release Home_button // Home
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Home Button",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Home_button",USER,SESSION);
 }
 
 Release Select_AV_Jack // AV Jack Input
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "AV Jack",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_AV_Jack",USER,SESSION);
 }
 
 Release Select_BluRay // Blu-ray Input
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Blu-ray",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_BluRay",USER,SESSION);
 }
 
 Release Select_Device_Control_Bluray // Device Control Blu-ray
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Device Control - Blu-ray",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_Device_Control_BluRay",USER,SESSION);
 }
 
 Release Select_PA_Control // PA Control
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "PA Control",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Select_PA_Control",USER,SESSION);
 }
 
 Release Program_Volume_Slider_Press // Slider volume control
 {
 	/* User Event */
 	BuildHttpMessage("touchpanel", "Volume Slider",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Program_Volume_Slider_Press",USER,SESSION);
 }
 
 Release Audio_Only_Press // Audio Only button on init screen
@@ -526,7 +511,6 @@ Release Audio_Only_Press // Audio Only button on init screen
 	StartSession();
 
 	/* User Event */
-	//BuildHttpMessage("touchpanel", "Audio_Only_Press",USER,SESSION);
 	BuildHttpMessage("touchpanel", "Audio Only",USER,SESSION);
 }
 
