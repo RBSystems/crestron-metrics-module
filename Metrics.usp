@@ -43,13 +43,20 @@ DIGITAL_OUTPUT _clientConnected;
 
 STRING_OUTPUT  _skip_,_skip_,_skip_,_skip_,toDevBuilding,toDevRoom,toDevFloor,toDevLat,toDevLon,toClientBuffer$,storeSessionId;
 
+#IF_SERIES3
 
+#USER_SIMPLSHARP_LIBRARY "ELKStackUtils"
+
+#ENDIF
+
+#IF_SERIES2
 /*******************************************************************************************
   SOCKETS
 *******************************************************************************************/
 
 TCP_CLIENT client[1024];
 
+#ENDIF
 /*******************************************************************************************
   Structure Definitions
   Note:  Be sure to initialize all declared STRING variables as needed
@@ -122,7 +129,9 @@ Function Error(string msg)
 Function Send(string msg)
 {
 	//Print("Sending: %s",msg);
+	#IF_SERIES2
 	SocketSend(client,msg);	
+	#ENDIF
 }
 
 Function storeGlobalVars(string inputString)
@@ -377,14 +386,12 @@ RELEASE Startup_press // Start the session, turn system on
 	
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Startup",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Startup_press",USER,SESSION);
 }
 
 RELEASE Confirm_System_Off  // End the session, turn system off
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "System Off",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Confirm_System_Off",USER,SESSION);
 	
 	/* Designated Session Stop */	
 	EndSession();
@@ -394,7 +401,6 @@ Release Program_Volume_Down // Volume Down
 {
 	/*User Event*/
 	BuildHttpMessage("touchpanel", "Volume Down",USER,SESSION);
-	//BuildHttpMessage("touchpanel", "Program_Volume_Down",USER,SESSION);
 }
 
 Release Program_Volume_Up // Volume Down
@@ -625,7 +631,10 @@ CHANGE InputLabel7
 PUSH clientConnected
 {
  	SIGNED_INTEGER status; // variable to capture/store socket status
+
+	#IF_SERIES2
 	status = SocketConnectClient (client, REPORTINGHOST, REPORTINGHOSTPORT, 0); // SocketConnectClient(tcpClient,host,port,reconnect)
+	#ENDIF
     
 	// Status < 0 is an error, greater than is a successful connection
     if (status < 0)
@@ -637,7 +646,10 @@ PUSH clientConnected
 RELEASE clientConnected  
 {
 	SIGNED_INTEGER status;
+
+	#IF_SERIES2
 	status = SocketDisconnectClient(client);
+	#ENDIF
 
 	if (status < 0)
 		Print("Error disconnecting socket to address %s on port %d",REPORTINGHOST,REPORTINGHOSTPORT);
@@ -657,6 +669,8 @@ When using the THREADSAFE keyword before an event (such as PUSH, RELEASE, CHANGE
 Events prevented from triggering WILL be dropped.
 
 ************/
+
+#IF_SERIES2
 THREADSAFE SOCKETCONNECT client
 {
 	SIGNED_INTEGER LocalStatus,PortNumber;
@@ -677,13 +691,12 @@ THREADSAFE SOCKETCONNECT client
 
 	// Starts timer to force reconnect of stale session
 
-	#IF_SERIES2
 	WAIT (RECONNECTTIME, ReconnectTimer)
 	{
 		_clientConnected = 0;
 		_clientConnected = 1;
 	}
-	#ENDIF
+	
 	
 }
 
@@ -698,19 +711,15 @@ SOCKETDISCONNECT client
 	_clientConnected = 1;
 	
 
-	#IF_SERIES2
 	CancelWait(ReconnectTimer);
-	#ENDIF
 }
 
 // Display the data received from the calls to the client and clear the buffer
 SOCKETRECEIVE client
 {
 	
-	#IF_SERIES2
 	RetimeWait(RECONNECTTIME, ReconnectTimer);
-	#ENDIF
-	
+
 	//STRING received$[1024];
 	//received$ = client.SocketRxBuf;
     if (Len(client.SocketRxBuf) < 256)
@@ -721,6 +730,7 @@ SOCKETRECEIVE client
     // send to serial output and clear buffer
     //clientRx = client.SocketRxBuf;
     ClearBuffer(client.SocketRxBuf);
+
 }
 
 // The SOCKETSTATUS event is called when the status of a TCP_CLIENT or TCP_SERVER socket changes.
@@ -815,6 +825,7 @@ SOCKETSTATUS client
 		}
 	};
 }
+#ENDIF
 
 /*******************************************************************************************
   Main()
